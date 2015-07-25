@@ -20,7 +20,9 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+    if (bShowControls && bGrabControl) {
+        shapes[activeShape].update();
+    }
 }
 
 //--------------------------------------------------------------
@@ -44,6 +46,8 @@ void ofApp::draw(){
         ofDrawBitmapString("position clicked : ", 200, 65);
         string coord = ofToString(mouseX) + " : " + ofToString(mouseY);
         ofDrawBitmapString(coord, 400, 65);
+//        coord = ofToString(shapes[activeShape].contour.getCentroid2D().x) + " : " + ofToString(shapes[activeShape].contour.getCentroid2D().x);
+//        ofDrawBitmapString(coord, 400, 80);
     }
 }
 
@@ -57,6 +61,10 @@ void ofApp::keyPressed(int key){
         }
         bShowControls = !bShowControls;
     }
+    if (key == 'a') {
+        shapes[1].contour
+    }
+
 }
 
 //--------------------------------------------------------------

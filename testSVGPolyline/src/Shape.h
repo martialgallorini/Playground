@@ -22,17 +22,20 @@ public:
     void update();
     void draw();
     
+    void updatePath();
+    void updateContour();
+    
     // is control point hovered ?
     int controlHovered(float x, float y);
     
     // shape path
-    ofPath path;
+    ofPath path;        // drawing shape
+    ofPolyline contour; // processing shape
     
     // control points
     vector<ofPath::Command> controls;
     
     bool bCommands;         // edit mode
-    bool bCommandGrab;      // grab command point with mouse
     float commandRadius;
     
 };
