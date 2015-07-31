@@ -1,6 +1,6 @@
 ofxGui
-ofxNetwork
 ofxOsc
 ofxSvg
-ofxBox2d
+ofxXmlSettings
+ofxSvgSaver
 ofxSyphon

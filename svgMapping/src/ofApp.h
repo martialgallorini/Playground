@@ -1,53 +1,73 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxBox2d.h"
 #include "ofxSvg.h"
-#include "ofxOsc.h"
+#include "Shape.h"
 #include "ofxSyphon.h"
 #include "ofxGui.h"
 
 class ofApp : public ofBaseApp{
-
-	public:
-		void setup();
-		void update();
-		void draw();
-
-		void keyPressed(int key);
-		void keyReleased(int key);
-		void mouseMoved(int x, int y );
-		void mouseDragged(int x, int y, int button);
-		void mousePressed(int x, int y, int button);
-		void mouseReleased(int x, int y, int button);
-		void windowResized(int w, int h);
-		void dragEvent(ofDragInfo dragInfo);
-		void gotMessage(ofMessage msg);
     
-    void setupGui();
+public:
     
-    ofxBox2d box2d;
+    void setup();
+    void update();
+    void draw();
+    void exit();
     
-    vector<shared_ptr<ofxBox2dRect> > blocks;
-    vector<shared_ptr<ofxBox2dEdge> > edges;
+    void keyPressed(int key);
+    void keyReleased(int key);
+    void mouseMoved(int x, int y );
+    void mouseDragged(int x, int y, int button);
+    void mousePressed(int x, int y, int button);
+    void mouseReleased(int x, int y, int button);
+    void windowResized(int w, int h);
+    void dragEvent(ofDragInfo dragInfo);
+    void gotMessage(ofMessage msg);
     
-    vector<ofColor> shapeColors;
-    vector<float> strokeWidth;
+    void populateShapeGui();
     
     ofxSVG svg;
     
-    float g;
+    vector<Shape> shapes;
+    
+    bool bGrabControl;      // is control point grabbed
+    int activeControl;      // active control point index
+    int activeShape;        // active shape index
+
+    //bool bShowControls;     // show control points
     
     ofxSyphonServer syphonServer;
-    
-    //ofFbo fbo;
-    
-    ofxPanel gui;
-    bool bGui;
 
-    ofParameter<int> lineMode;
-    ofParameter<float> lifetime;
-    ofParameter<bool> bPhysics;
-    ofParameter<bool> bContact;
+    // SCENE GUI
+    ofxPanel sceneGui;
+    bool bShowGui;
     
+    //ofParameterGroup editModeGroup;
+    ofParameter<bool> editMode;
+    ofParameter<bool> enableSyphon;
+    ofParameter<bool> enableOsc;
+    //ofParameter<bool> singleShape;
+    
+    // SHAPE GUI (populated from Shape class parameters)
+    ofxPanel shapeGui;
 };
+
+
+/*
+
+NOTES : 
+ 
+mouseMove event -> transmettre coordonnŽes ˆ Shape.
+ si controlHovered -> envoyer event ˆ ofApp avec index control hovered
+ dans ofApp -> methode dŽclenchŽe par ŽvŽnement envoie Shape::control.move();
+ 
+ 
+ 
+ if (activeShape == this)
+ avec Shape* activeShape;
+ ofApp::mousePressed() -> isHovered -> Shape::active = true;
+ Shape::mouseDragged() -> if (activeShape == this) -> this.moveControl()
+ 
+  
+*/

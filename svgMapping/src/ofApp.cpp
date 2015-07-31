@@ -3,151 +3,207 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
-    setupGui();
+    ofSetFrameRate(60);
+    //    ofDisableAlphaBlending();
+    //    ofDisableDepthTest();
+    //    ofDisableLighting();
     
-    bGui = false;
-    g = 10.0;
+    svg.load("1.svg");
     
-    //fbo.allocate(ofGetWidth(), ofGetHeight());
-    
-    box2d.init();
-    box2d.createBounds();
-    box2d.setFPS(60.0);
-    box2d.setGravity(ofPoint(0, g, 0));
-    
-    svg.load("2.svg");
-    
-    // get every distinct shapes from the SVG file one by one
-    for (int i = 0; i < svg.getNumPath(); i++) {
-        
-        // grab a shape
-        ofPath shape = svg.getPathAt(i);
-        
-        // store its color and stroke width
-        shapeColors.push_back(shape.getStrokeColor());
-        strokeWidth.push_back(shape.getStrokeWidth());
-        
-        // grab the outline from the shape
-        for(int j = 0; j < shape.getOutline().size(); j++) {
-            ofPolyline line = shape.getOutline().at(j);
-            
-            // if this is a closed shape, join the first and last points
-            // to close the contour
-            if(line.isClosed()) {
-                line.addVertex(line.getVertices()[0]);
-            }
-            
-            // create a box2dEdge from the shape to make it interact with
-            // other ojects into the box2d world
-            shared_ptr <ofxBox2dEdge> edge = shared_ptr<ofxBox2dEdge>(new ofxBox2dEdge);
-            edge->addVertexes(line);
-            edge->setPhysics(0.0, 0.1, 0.7);
-            edge->create(box2d.getWorld());
-            edges.push_back(edge);
-        }
+    // grab individual shapes from SVG file
+    for(int i = 0; i < svg.getNumPath(); i++) {
+        Shape s;
+        s.setup(svg.getPathAt(i));
+        shapes.push_back(s);
     }
     
-    syphonServer.setName("SVG Mapping Content");
+    bGrabControl = false;
+    activeControl = -1;
+    activeShape = -1;       // active shape index
+    //bShowControls = false;
+    
+    syphonServer.setName("SVG Mapping");
+    
+    // SCENE GUI
+    sceneGui.setup();
+    sceneGui.setName("SCENE SETTINGS");
+    sceneGui.add(enableOsc.set("Enable OSC", false));
+    sceneGui.add(enableSyphon.set("Enable Syphon", false));
+    sceneGui.add(editMode.set("Edit mode", false));
+    
+    // SHAPE GUI - populated from a shape when single shape mode activated
+    shapeGui.setup();
+    shapeGui.setName("SHAPE SETTINGS");
+    shapeGui.setPosition(sceneGui.getPosition().x, sceneGui.getPosition().y + sceneGui.getHeight() + 5);
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    box2d.update();
+    
+    //    // show control points
+    //    if (editMode) {
+    //        for(int i = 0; i < shapes.size(); i++) {
+    //            shapes.at(i).bCommands = !shapes.at(i).bCommands;
+    //        }
+    //    }
+    
+    //    // edit shape moving control point
+    //    if (editMode && bGrabControl) {
+    //        shapes[activeShape].update();
+    //    }
+    
+    // edit shape moving control point
+    if (editMode) {
+        if (activeShape != -1) {
+            shapes.at(activeShape).bCommands = !shapes.at(activeShape).bCommands;
+        }
+        
+        if (bGrabControl){
+            shapes[activeShape].update();
+        }
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    //fbo.begin();
-    ofBackground(30);
     
-    ofSetColor(250);
-    ofDrawBitmapString("number of boxes : ", 10, 10);
-    ofDrawBitmapString(ofToString(blocks.size()), 200, 10);
-    ofDrawBitmapString(ofToString(ofGetFrameRate()), 10, 20);
+    ofBackground(0);
+    ofSetColor(200);
     
     // draw shapes
-    for(int i = 0; i < edges.size(); i++) {
-        ofSetColor(shapeColors[i]);
-        ofSetLineWidth(strokeWidth[i]);
-        edges[i]->draw();
-    }
-
-    // draw physics particles
-    for(int i = 0; i < blocks.size(); i++){
-        ofSetColor(12, 220, 50);
-        blocks[i]->draw();
+    for(int i = 0; i < shapes.size(); i++) {
+        shapes.at(i).draw();
     }
     
-    //fbo.end();
-    
-    //fbo.draw(0, 0);
-    
-    //syphonServer.publishTexture(&fbo.getTextureReference());
-    
-    if(bGui){
-        gui.draw();
+    // if a control point is grabbed, display debug info
+    if (editMode && bGrabControl) {
+        ofDrawBitmapString("Command grabbed !", 200, 20);
+        ofDrawBitmapString("Active Shape : ", 200, 35);
+        ofDrawBitmapString(ofToString(activeShape), 400, 35);
+        ofDrawBitmapString("Active Control point : ", 200, 50);
+        ofDrawBitmapString(ofToString(activeControl), 400, 50);
+        ofDrawBitmapString("position clicked : ", 200, 65);
+        string coord = ofToString(mouseX) + " : " + ofToString(mouseY);
+        ofDrawBitmapString(coord, 400, 65);
+        //        coord = ofToString(shapes[activeShape].contour.getCentroid2D().x) + " : " + ofToString(shapes[activeShape].contour.getCentroid2D().x);
+        //        ofDrawBitmapString(coord, 400, 80);
     }
+    
+    // GUI
+    if (bShowGui) {
+        sceneGui.draw();
+        if (editMode) {
+            shapeGui.draw();
+        }
+    }
+    syphonServer.publishScreen();
 }
 
 //--------------------------------------------------------------
-void ofApp::setupGui(){
-    gui.setup();
-    
-    gui.add(lineMode.set("Winding Mode", 2, 0, 5));
-    gui.add(lifetime.set("Particle lifetime", 10, 1, 30));
-    gui.add(bPhysics.set("Use physics", true));
-    gui.add(bContact.set("Contact detection", false));
+void ofApp::populateShapeGui(){
+    shapeGui.clear();
+    shapeGui.add(shapes[activeShape].groupGeometry);
+    shapeGui.add(shapes[activeShape].groupGraphics);
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    if(key == OF_KEY_TAB){
-        g *= -1;
-        box2d.setGravity(ofPoint(0, g, 0));
+    
+    // toggle edit mode (shows control points)
+    if (key == OF_KEY_TAB) {
+        editMode = !editMode;
     }
-    if(key == 'b'){
-        bGui = !bGui;
+    
+    // toggle edit mode (shows control points)
+    if (key == 'p') {
+        bShowGui = !bShowGui;
     }
+    
+    // save scene to SVG file
+    if (key == 's') {
+        ofCairoRenderer save;   // save scene to an SVG file
+        save.setup("mapping.svg", ofCairoRenderer::SVG);
+        save.viewport();
+        save.clear(0);
+        save.background(0);
+        for (int i = 0; i < shapes.size(); i++) {
+            save.draw(shapes[i].path);
+        }
+        save.close();
+        save.flush();
+    }
+}
+
+//--------------------------------------------------------------
+void ofApp::exit(){
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-    float w = ofRandom(10, 30);
-    float h = ofRandom(10, 30);
-    blocks.push_back(shared_ptr<ofxBox2dRect>(new ofxBox2dRect));
-    blocks.back().get()->setPhysics(1.0, 0.4, 0.5);
-    blocks.back().get()->setup(box2d.getWorld(), x, y, w, h);
+    
+    // move grabbed control point
+    if (bGrabControl) {
+        ofPoint m = ofPoint(x, y);
+        shapes[activeShape].controls[activeControl].to.set(m);
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
+    
+    if (editMode) {
+        for(int i = 0; i < shapes.size(); i++) {
+            if (shapes[i].inside(x, y)) {
+                activeShape = i;
+                return;
+            }
+            else {
+                activeShape = -1;
+            }
+        }
+        
+        // check if mouse if hovering a control point in edit mode
+        if (activeShape != -1) {
+            int cIndex = shapes[activeShape].controlHovered(x, y);
+            if (cIndex != -1) {
+                //activeShape = i;
+                bGrabControl = true;
+                activeControl = cIndex;
+            }
+            populateShapeGui();
+        }
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-
+        bGrabControl = false;
+    //    activeShape = -1;
+        activeControl = -1;
 }
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::gotMessage(ofMessage msg){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
-
+    
 }
