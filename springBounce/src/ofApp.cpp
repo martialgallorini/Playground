@@ -6,7 +6,7 @@ void ofApp::setup(){
     
     ofSetFrameRate(60);
     
-    ballRadius = 10;
+    float ballRadius = 10;
     int nbX = ofGetWidth() / (ballRadius * 2) + 1;
     int nbY = ofGetHeight() / (ballRadius * 2) + 1;
     
@@ -19,9 +19,17 @@ void ofApp::setup(){
     
     dist = ofPoint(0, 0);
     attraction = ofPoint(0, 0);
-    k = 0.2;
-    friction = 0.9;
+    
     limit = 0.01;
+    showGui = false;
+    
+    gui.setup();
+    gui.setName("PROPERTIES");
+    
+    gui.add(stiffness.set("stiffness", 0.265, 0, 1));
+    gui.add(friction.set("friction", 0.97, 0, 1));
+    gui.add(damping.set("damping", 0.125, 0, 1));
+    gui.add(mass.set("mass", 5, 0, 10));
     
 }
 
@@ -31,16 +39,14 @@ void ofApp::update(){
     for (int i = 0; i < balls.size(); i++) {
         
         dist = balls[i].pin - balls[i].position;
-        attraction = dist * k;
+        attraction = ((dist * stiffness) - (damping * dist))/mass;
         balls[i].velocity = (balls[i].velocity + attraction) * friction;
         balls[i].position = balls[i].position + balls[i].velocity;
         
         if (dist.length() < limit) {
             balls[i].position = balls[i].pin;
         }
-        
-        balls[i].radius = ofMap(dist.length(), 0., 100., ballRadius, 1.);
-        
+        balls[i].update();
     }
 }
 
@@ -48,17 +54,21 @@ void ofApp::update(){
 void ofApp::draw(){
     
     ofBackground(0);
-    ofSetColor(240);
 
     for (int i = 0; i < balls.size(); i++) {
         balls[i].draw();
     }
     
+    if (showGui) {
+        gui.draw();
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    
+    if (key == OF_KEY_TAB) {
+        showGui = !showGui;
+    }
 }
 
 //--------------------------------------------------------------

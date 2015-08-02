@@ -29,6 +29,8 @@ public:
     
     ofPoint pin;
     
+    ofPoint dist;
+   
 };
 
 

@@ -12,18 +12,23 @@ void ball::setup(float x, float y, float r) {
     pin = ofPoint(x, y);
     position = pin;
     radius = r;
-    velocity = ofPoint(0, 0, 0);
-    areaRadius = 70;
+    velocity = ofPoint(0, 0);
+    areaRadius = 20;
+    dist = ofPoint(0,0);
+
 }
 
 void ball::update() {
-    
+    dist = pin - position;
 }
 
 void ball::draw() {
+    
     ofPushMatrix();
-    ofCircle(pin, radius);
+    ofSetColor(ofMap(dist.length(), -30, 30, 30, 190, true));
+    ofCircle(position, radius);
     ofPopMatrix();
+    
 }
 
 bool ball::inArea(float x, float y) {

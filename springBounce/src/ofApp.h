@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ball.h"
+#include "ofxGui.h"
 
 class ofApp : public ofBaseApp{
 
@@ -22,11 +23,16 @@ class ofApp : public ofBaseApp{
     
     vector<ball> balls;
     
-    float k;
-    float friction;
-
     float limit;
     
-    float ballRadius;
+    ofxPanel gui;
+    
+    ofParameter<float> mass;
+    ofParameter<float> damping;
+    ofParameter<float> stiffness;
+    ofParameter<float> friction;
+    
+    bool showGui;
+
 };
 
