@@ -75,6 +75,13 @@ void Shape::draw(){
     ofPopMatrix();
 }
 
+
+
+
+
+// TODO !!!!!!
+
+
 // is mouse hovering a control point ?
 int Shape::controlHovered(float x, float y) {
     for (int i = 0; i < controls.size(); i++) {
@@ -85,6 +92,15 @@ int Shape::controlHovered(float x, float y) {
     }
     return -1;
 }
+
+
+
+
+
+
+
+
+
 
 void Shape::updatePath() {
     

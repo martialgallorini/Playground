@@ -26,14 +26,16 @@ public:
     void gotMessage(ofMessage msg);
     
     void populateShapeGui();
+    //Shape* getActiveShape();
     
     ofxSVG svg;
     
     vector<Shape> shapes;
     
+    Shape* activeShape;     // active shape
+    
     bool bGrabControl;      // is control point grabbed
     int activeControl;      // active control point index
-    int activeShape;        // active shape index
 
     //bool bShowControls;     // show control points
     

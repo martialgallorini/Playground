@@ -19,7 +19,7 @@ void ofApp::setup(){
     
     bGrabControl = false;
     activeControl = -1;
-    activeShape = -1;       // active shape index
+    activeShape = NULL;       // active shape
     //bShowControls = false;
     
     syphonServer.setName("SVG Mapping");
@@ -54,12 +54,9 @@ void ofApp::update(){
     
     // edit shape moving control point
     if (editMode) {
-        if (activeShape != -1) {
-            shapes.at(activeShape).bCommands = !shapes.at(activeShape).bCommands;
-        }
         
         if (bGrabControl){
-            shapes[activeShape].update();
+            activeShape->update();
         }
     }
 }
@@ -102,8 +99,8 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::populateShapeGui(){
     shapeGui.clear();
-    shapeGui.add(shapes[activeShape].groupGeometry);
-    shapeGui.add(shapes[activeShape].groupGraphics);
+    shapeGui.add(activeShape->groupGeometry);
+    shapeGui.add(activeShape->groupGraphics);
 }
 
 //--------------------------------------------------------------
@@ -155,42 +152,43 @@ void ofApp::mouseDragged(int x, int y, int button){
     // move grabbed control point
     if (bGrabControl) {
         ofPoint m = ofPoint(x, y);
-        shapes[activeShape].controls[activeControl].to.set(m);
+        activeShape->controls[activeControl].to.set(m);
     }
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
     
+    // set active shape if shape selected
     if (editMode) {
+        activeShape = NULL;
         for(int i = 0; i < shapes.size(); i++) {
             if (shapes[i].inside(x, y)) {
-                activeShape = i;
-                return;
+                activeShape = &shapes[i];
+                activeShape->bCommands = true;
             }
             else {
-                activeShape = -1;
+                shapes[i].bCommands = false;
             }
         }
         
         // check if mouse if hovering a control point in edit mode
-        if (activeShape != -1) {
-            int cIndex = shapes[activeShape].controlHovered(x, y);
+        if (activeShape != NULL) {
+            int cIndex = activeShape->controlHovered(x, y);
             if (cIndex != -1) {
-                //activeShape = i;
                 bGrabControl = true;
                 activeControl = cIndex;
             }
             populateShapeGui();
+            
         }
     }
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-        bGrabControl = false;
-    //    activeShape = -1;
-        activeControl = -1;
+    bGrabControl = false;
+    activeControl = -1;
 }
 
 //--------------------------------------------------------------
@@ -204,6 +202,6 @@ void ofApp::gotMessage(ofMessage msg){
 }
 
 //--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo){ 
+void ofApp::dragEvent(ofDragInfo dragInfo){
     
 }
