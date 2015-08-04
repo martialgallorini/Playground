@@ -6,13 +6,14 @@ void ofApp::setup(){
     
     ofSetFrameRate(60);
     
-    float ballRadius = 10;
+    float ballRadius = 15;
     int nbX = ofGetWidth() / (ballRadius * 2) + 1;
     int nbY = ofGetHeight() / (ballRadius * 2) + 1;
     
     for (int x = 0; x < nbX; x++) {
         for (int y = 0; y < nbY; y++) {
             balls.push_back(ball());
+            //balls.back().setup((x * ballRadius * 2) + ballRadius, (y * ballRadius * 2) + ballRadius, ballRadius);
             balls.back().setup(x * ballRadius * 2, y * ballRadius * 2, ballRadius);
         }
     }
@@ -27,9 +28,13 @@ void ofApp::setup(){
     gui.setName("PROPERTIES");
     
     gui.add(stiffness.set("stiffness", 0.265, 0, 1));
-    gui.add(friction.set("friction", 0.97, 0, 1));
+    gui.add(friction.set("friction", 0.98, 0, 1));
     gui.add(damping.set("damping", 0.125, 0, 1));
-    gui.add(mass.set("mass", 5, 0, 10));
+    gui.add(mass.set("mass", 5, 0, 20));
+//    gui.add(stiffness.set("stiffness", 0.345, 0, 1));
+//    gui.add(friction.set("friction", 0.98, 0, 1));
+//    gui.add(damping.set("damping", 0.195, 0, 1));
+//    gui.add(mass.set("mass", 5, 0, 20));
     
 }
 
@@ -68,6 +73,11 @@ void ofApp::draw(){
 void ofApp::keyPressed(int key){
     if (key == OF_KEY_TAB) {
         showGui = !showGui;
+    }
+    if (key == ' ') {
+        ofImage scr;
+        scr.grabScreen(0, 0, ofGetWidth(), ofGetHeight());
+        scr.saveImage("screenshot.png");
     }
 }
 
