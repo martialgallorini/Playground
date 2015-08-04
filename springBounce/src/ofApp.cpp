@@ -6,17 +6,7 @@ void ofApp::setup(){
     
     ofSetFrameRate(60);
     
-    float ballRadius = 15;
-    int nbX = ofGetWidth() / (ballRadius * 2) + 1;
-    int nbY = ofGetHeight() / (ballRadius * 2) + 1;
-    
-    for (int x = 0; x < nbX; x++) {
-        for (int y = 0; y < nbY; y++) {
-            balls.push_back(ball());
-            //balls.back().setup((x * ballRadius * 2) + ballRadius, (y * ballRadius * 2) + ballRadius, ballRadius);
-            balls.back().setup(x * ballRadius * 2, y * ballRadius * 2, ballRadius);
-        }
-    }
+    setupMatrix();
     
     dist = ofPoint(0, 0);
     attraction = ofPoint(0, 0);
@@ -69,6 +59,24 @@ void ofApp::draw(){
     }
 }
 
+void ofApp::setupMatrix() {
+    float ballRadius = 17;
+    int nbX = ofGetWidth() / (ballRadius * 2) + 1;
+    int nbY = ofGetHeight() / (ballRadius * 2) + 1;
+    
+    if (balls.size() != 0) {
+        balls.clear();
+    }
+    
+    for (int x = 0; x < nbX; x++) {
+        for (int y = 0; y < nbY; y++) {
+            balls.push_back(ball());
+            //balls.back().setup((x * ballRadius * 2) + ballRadius, (y * ballRadius * 2) + ballRadius, ballRadius);
+            balls.back().setup(x * ballRadius * 2, y * ballRadius * 2, ballRadius);
+        }
+    }
+}
+
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     if (key == OF_KEY_TAB) {
@@ -78,6 +86,10 @@ void ofApp::keyPressed(int key){
         ofImage scr;
         scr.grabScreen(0, 0, ofGetWidth(), ofGetHeight());
         scr.saveImage("screenshot.png");
+    }
+    if (key == 'f') {
+        ofToggleFullscreen();
+        setupMatrix();
     }
 }
 
