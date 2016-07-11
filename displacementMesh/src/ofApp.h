@@ -1,6 +1,6 @@
 #pragma once
 
-#define MAP_SCALE 4
+#define MAP_SCALE 5
 
 #include "ofMain.h"
 #include "ofxOpenCv.h"
@@ -25,7 +25,7 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
-    ofMesh mesh;
+    ofVboMesh mesh;
     
     ofImage image;
     

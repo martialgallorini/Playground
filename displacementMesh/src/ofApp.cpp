@@ -11,25 +11,41 @@ void ofApp::setup(){
     
     mesh.setMode(OF_PRIMITIVE_POINTS);
     mesh.enableColors();
+    mesh.enableIndices();
     glPointSize(3);
     
     //ofxCvGrayscaleImage grayMap;
-    ofImage grayMap;
-    grayMap = image;
+    ofImage scaledImage;
+    scaledImage = image;
     //grayMap.blur();
-    grayMap.setImageType(OF_IMAGE_GRAYSCALE);
-    grayMap.resize(image.getWidth() / MAP_SCALE, image.getHeight() / MAP_SCALE);
+    //scaledImage.setImageType(OF_IMAGE_GRAYSCALE);
+    scaledImage.resize(image.getWidth() / MAP_SCALE, image.getHeight() / MAP_SCALE);
     
-    for (int x = 0; x < grayMap.getWidth(); x++) {
-        for (int y = 0; y < grayMap.getHeight(); y++) {
+    int width = scaledImage.getWidth();
+    int height = scaledImage.getHeight();
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
             
-            ofColor c = grayMap.getPixels().getColor(x, y);
-            //ofColor c = grayMap.getColor(x, y);
+            //ofColor c = grayMap.getPixels().getColor(x, y);
+            ofColor c = scaledImage.getColor(x, y);
             float brightness = c.getBrightness();
-            ofMap(brightness, 0, 1, -50, 50);
+            ofMap(brightness, 0, 1, -40, 40);
             ofPoint p(x * MAP_SCALE, y * MAP_SCALE, brightness);
             mesh.addVertex(p);
             mesh.addColor(image.getColor(x * MAP_SCALE, y * MAP_SCALE));
+        }
+    }
+    
+    //add indices
+    for (int y = 0; y< height - 1; y++){
+        for (int x=0; x < width - 1; x++){
+            mesh.addIndex(x+y*width);               // 0
+            mesh.addIndex((x+1)+y*width);           // 1
+            mesh.addIndex(x+(y+1)*width);           // 10
+            
+            mesh.addIndex((x+1)+y*width);           // 1
+            mesh.addIndex((x+1)+(y+1)*width);       // 11
+            mesh.addIndex(x+(y+1)*width);           // 10
         }
     }
     
