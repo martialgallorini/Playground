@@ -1,29 +1,35 @@
 #include "ofApp.h"
 
+
 //--------------------------------------------------------------
 void ofApp::setup(){
     
     ofBackground(0);
     
+    image.load("image.jpg");
+    ofSetWindowShape(image.getWidth(), image.getHeight());
+    
     mesh.setMode(OF_PRIMITIVE_POINTS);
     mesh.enableColors();
+    glPointSize(3);
     
-    image.load("image.jpg");
-    
+    //ofxCvGrayscaleImage grayMap;
+    ofImage grayMap;
     grayMap = image;
+    //grayMap.blur();
     grayMap.setImageType(OF_IMAGE_GRAYSCALE);
-    grayMap.resize(image.getWidth() / 4, image.getHeight() / 4);
+    grayMap.resize(image.getWidth() / MAP_SCALE, image.getHeight() / MAP_SCALE);
     
     for (int x = 0; x < grayMap.getWidth(); x++) {
         for (int y = 0; y < grayMap.getHeight(); y++) {
             
-            ofColor c = grayMap.getColor(x, y);
+            ofColor c = grayMap.getPixels().getColor(x, y);
+            //ofColor c = grayMap.getColor(x, y);
             float brightness = c.getBrightness();
             ofMap(brightness, 0, 1, -50, 50);
-            
-            ofPoint p(x * 4, y * 4, brightness);
+            ofPoint p(x * MAP_SCALE, y * MAP_SCALE, brightness);
             mesh.addVertex(p);
-            mesh.addColor(image.getColor(x * 4, y * 4));
+            mesh.addColor(image.getColor(x * MAP_SCALE, y * MAP_SCALE));
         }
     }
     

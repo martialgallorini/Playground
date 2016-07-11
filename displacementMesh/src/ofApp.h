@@ -1,6 +1,10 @@
 #pragma once
 
+#define MAP_SCALE 4
+
 #include "ofMain.h"
+#include "ofxOpenCv.h"
+#include "ofxGui.h"
 
 class ofApp : public ofBaseApp{
 
@@ -24,7 +28,6 @@ class ofApp : public ofBaseApp{
     ofMesh mesh;
     
     ofImage image;
-    ofImage grayMap;
     
     ofEasyCam cam;
 };
