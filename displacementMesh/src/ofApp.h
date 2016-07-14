@@ -1,6 +1,6 @@
 #pragma once
 
-#define MAP_SCALE 5
+#define MAP_SCALE 30
 
 #include "ofMain.h"
 #include "ofxOpenCv.h"
@@ -12,6 +12,7 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
+    void exit();
 
 		void keyPressed(int key);
 		void keyReleased(int key);
@@ -24,10 +25,24 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+
+    void onDisplacementChanged(float &val);
+    void onWindingmodeChanged(int &val);
+    void onPointSizeChanged(float &val);
 		
     ofVboMesh mesh;
     
     ofImage image;
+    ofImage scaledImage;
     
     ofEasyCam cam;
+    
+    ofLight light;
+    
+    ofxPanel gui;
+    ofParameter<float> displacement;
+    ofParameter<int> windingMode;
+    ofParameter<float> pointSize;
+    
+    bool bSetup;
 };
