@@ -1,6 +1,6 @@
 #pragma once
 
-#define STEP 5
+#define STEP 20
 #define SCALE_METHOD
 
 #include "ofMain.h"

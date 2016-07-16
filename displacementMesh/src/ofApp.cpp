@@ -35,7 +35,7 @@ void ofApp::setup(){
     for (int y = 0; y < scaledH; y++) {
         for (int x = 0; x < scaledW; x++) {
             ofColor c = image.getColor(x, y);
-            float brightness = ofMap(c.getBrightness(), 0, 255, -displacement, displacement);
+            float brightness = ofMap(c.getBrightness(), 0, 255, 0, displacement);
             ofPoint p(x * STEP, y * STEP, brightness);
             mesh.addVertex(p);
             mesh.addColor(image.getColor(x, y));
