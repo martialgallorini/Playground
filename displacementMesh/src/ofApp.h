@@ -1,6 +1,7 @@
 #pragma once
 
-#define MAP_SCALE 30
+#define STEP 5
+#define SCALE_METHOD
 
 #include "ofMain.h"
 #include "ofxOpenCv.h"
@@ -27,13 +28,13 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 
     void onDisplacementChanged(float &val);
-    void onWindingmodeChanged(int &val);
     void onPointSizeChanged(float &val);
+    void onShadeModelChange(bool &val);
 		
     ofVboMesh mesh;
+    ofVboMesh wireframe;
     
     ofImage image;
-    ofImage scaledImage;
     
     ofEasyCam cam;
     
@@ -41,8 +42,16 @@ class ofApp : public ofBaseApp{
     
     ofxPanel gui;
     ofParameter<float> displacement;
-    ofParameter<int> windingMode;
     ofParameter<float> pointSize;
+    ofParameter<bool> bFaces;
+    ofParameter<bool> bLines;
+    ofParameter<bool> bPoints;
+    ofParameter<float> minAlpha;
+    ofParameter<float> maxAlpha;
+    ofParameter<float> distanceLimit;
+    ofParameter<bool> bSmooth;
+    
+    
     
     bool bSetup;
 };
