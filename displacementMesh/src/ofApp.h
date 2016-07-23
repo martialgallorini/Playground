@@ -1,7 +1,6 @@
 #pragma once
 
-#define STEP 20
-#define SCALE_METHOD
+#define STEP 8
 
 #include "ofMain.h"
 #include "ofxOpenCv.h"
@@ -30,18 +29,22 @@ class ofApp : public ofBaseApp{
     void onDisplacementChanged(float &val);
     void onPointSizeChanged(float &val);
     void onShadeModelChange(bool &val);
+    
+//    void onDisplacementInverted(bool &val);
+    
+    void createMesh(ofImage &img);
+//    void updateAlpha();
+//    void updateVerticesPosition();
+//    void updateVerticesColor();
 		
     ofVboMesh mesh;
-    ofVboMesh wireframe;
-    
-    ofImage image;
+//    ofVboMesh wireframe;
     
     ofEasyCam cam;
     
-    ofLight light;
-    
     ofxPanel gui;
     ofParameter<float> displacement;
+    ofParameter<bool> bInvertDisplacement;
     ofParameter<float> pointSize;
     ofParameter<bool> bFaces;
     ofParameter<bool> bLines;
@@ -50,8 +53,6 @@ class ofApp : public ofBaseApp{
     ofParameter<float> maxAlpha;
     ofParameter<float> distanceLimit;
     ofParameter<bool> bSmooth;
-    
-    
     
     bool bSetup;
 };
