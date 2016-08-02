@@ -59,7 +59,7 @@ void ofApp::draw(){
     ofDisableDepthTest();
     ofPopMatrix();
     cam.end();
-    
+        
     if (bSetup) {
         gui.draw();
     }
