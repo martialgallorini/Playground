@@ -12,6 +12,8 @@ Project{
         name: { return FileInfo.baseName(path) }
 
         files: [
+            "src/composer.cpp",
+            "src/composer.h",
             "src/textpicker.cpp",
             "src/textpicker.h",
             "src/timer.cpp",

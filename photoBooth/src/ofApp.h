@@ -4,6 +4,8 @@
 #include "timer.h"
 #include "textpicker.h"
 #include "videopreview.h"
+#include "composer.h"
+#include "ofxGui.h"
 
 #define CAM_WIDTH 1280
 #define CAM_HEIGHT 720
@@ -14,6 +16,7 @@ public:
     void setup();
     void update();
     void draw();
+    void exit();
 
     void keyPressed(int key);
     void keyReleased(int key);
@@ -26,10 +29,11 @@ public:
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
+    
+    void onTimerEnd(const bool &val);
 
-    //ofVideoGrabber cam;
     VideoPreview preview;
-    ofFbo photoFbo;
+    Composer compose;
     ofFbo captionFbo;
 
     TextPicker word;
@@ -37,5 +41,9 @@ public:
     string text;
 
     Timer timer;
+
+    ofxPanel gui;
+
+    bool bSetup;
 
 };

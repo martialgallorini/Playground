@@ -362,6 +362,154 @@
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
+			<key>E76C1FA0E0D57E38E599E4A9</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>30</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>videopreview.h</string>
+				<key>path</key>
+				<string>src/videopreview.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>CBC18485065CF7E2AF9A2155</key>
+			<dict>
+				<key>fileRef</key>
+				<string>854BA5E52A77E180BE72B41B</string>
+				<key>isa</key>
+				<string>PBXBuildFile</string>
+			</dict>
+			<key>854BA5E52A77E180BE72B41B</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>fileEncoding</key>
+				<string>30</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>videopreview.cpp</string>
+				<key>path</key>
+				<string>src/videopreview.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>86B887DB11D233B6249BEF04</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>30</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>timer.h</string>
+				<key>path</key>
+				<string>src/timer.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>36C77BB65C7EF9B0130FD576</key>
+			<dict>
+				<key>fileRef</key>
+				<string>A63CFFB76190D23392DCD420</string>
+				<key>isa</key>
+				<string>PBXBuildFile</string>
+			</dict>
+			<key>A63CFFB76190D23392DCD420</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>fileEncoding</key>
+				<string>30</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>timer.cpp</string>
+				<key>path</key>
+				<string>src/timer.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>6B6231665C95F50CF06F9424</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>30</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>textpicker.h</string>
+				<key>path</key>
+				<string>src/textpicker.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>0C09B1B14A8C2D71BE95DC33</key>
+			<dict>
+				<key>fileRef</key>
+				<string>E6C53A98D58814D7FD97E7C6</string>
+				<key>isa</key>
+				<string>PBXBuildFile</string>
+			</dict>
+			<key>E6C53A98D58814D7FD97E7C6</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>fileEncoding</key>
+				<string>30</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>textpicker.cpp</string>
+				<key>path</key>
+				<string>src/textpicker.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>654F9DAFE87D8F54D4DE2E58</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>30</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>composer.h</string>
+				<key>path</key>
+				<string>src/composer.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>75F78414B0159268566A1E9E</key>
+			<dict>
+				<key>fileRef</key>
+				<string>8496EFCE7E6E20017FABA1FF</string>
+				<key>isa</key>
+				<string>PBXBuildFile</string>
+			</dict>
+			<key>8496EFCE7E6E20017FABA1FF</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>fileEncoding</key>
+				<string>30</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>composer.cpp</string>
+				<key>path</key>
+				<string>src/composer.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
 			<key>6948EE371B920CB800B5AC1A</key>
 			<dict>
 				<key>children</key>
@@ -648,6 +796,10 @@
 				<array>
 					<string>E4B69E200A3A1BDC003C02F2</string>
 					<string>E4B69E210A3A1BDC003C02F2</string>
+					<string>75F78414B0159268566A1E9E</string>
+					<string>0C09B1B14A8C2D71BE95DC33</string>
+					<string>36C77BB65C7EF9B0130FD576</string>
+					<string>CBC18485065CF7E2AF9A2155</string>
 					<string>856AA354D08AB4B323081444</string>
 					<string>5CBB2AB3A60F65431D7B555D</string>
 					<string>B266578FC55D23BFEBC042E7</string>
@@ -835,6 +987,14 @@
 					<string>E4B69E1D0A3A1BDC003C02F2</string>
 					<string>E4B69E1E0A3A1BDC003C02F2</string>
 					<string>E4B69E1F0A3A1BDC003C02F2</string>
+					<string>8496EFCE7E6E20017FABA1FF</string>
+					<string>654F9DAFE87D8F54D4DE2E58</string>
+					<string>E6C53A98D58814D7FD97E7C6</string>
+					<string>6B6231665C95F50CF06F9424</string>
+					<string>A63CFFB76190D23392DCD420</string>
+					<string>86B887DB11D233B6249BEF04</string>
+					<string>854BA5E52A77E180BE72B41B</string>
+					<string>E76C1FA0E0D57E38E599E4A9</string>
 				</array>
 				<key>isa</key>
 				<string>PBXGroup</string>

@@ -3,9 +3,6 @@
 #ifndef VIDEOPREVIEW_H
 #define VIDEOPREVIEW_H
 
-#define CAM_WIDTH 1280
-#define CAM_HEIGHT 720
-
 #include "ofMain.h"
 
 class VideoPreview
@@ -15,12 +12,20 @@ public:
     void setup();
     void update();
     void draw();
-//    ofTexture getTexture();
-//    ofTexture getCroppedTexture();
+    ofImage grabCroppedFrame();
 
     ofVideoGrabber cam;
 
     ofFbo view;
+    
+    ofParameterGroup params;
+    ofParameter<int> camWidth;
+    ofParameter<int> camHeight;
+    ofParameter<int> maskX;
+    ofParameter<int> maskY;
+    ofParameter<int> maskW;
+    ofParameter<int> maskH;
+    ofParameter<float> aspectRatio;
 };
 
 #endif // VIDEOPREVIEW_H

@@ -8,23 +8,23 @@
 class Timer
 {
 public:
+    //Timer(float t);
     ~Timer();
-    void setup(float t); // milliseconds
+    void setup();
     void update();
     void start();
-    void stop();
     void reset();
     void drawCountdown(int width, int height);
+    bool isTimedOut();
 
     ofEvent<const bool> timerEnded;
-    void onTimerEnd(const bool &val);
+    //void onTimerEnd(const bool &val);
 
     //float getElapsedTimeF();
 
-    float duration;
     float newTime;
     int countdown;
-    bool bStopped;
+    bool bTimeout;
 
     bool bFlash;
     float flashFade;
@@ -32,6 +32,12 @@ public:
     ofFbo fbo;
 
     ofTrueTypeFont countdownText;
+    
+    ofParameterGroup params;
+    ofParameter<int> duration;
+    ofParameter<int> fontSize;
+    ofParameter<float> x;
+    ofParameter<float> y;
 };
 
 #endif // TIMER_H
