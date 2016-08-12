@@ -45,5 +45,4 @@ public:
     ofxPanel gui;
 
     bool bSetup;
-
 };

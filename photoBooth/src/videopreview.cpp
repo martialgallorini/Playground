@@ -19,7 +19,6 @@ void VideoPreview::setup()
 
     cam.setDeviceID(0);
     cam.setDesiredFrameRate(30);
-    //cam.setup(camWidth, camHeight);
     cam.initGrabber(camWidth, camHeight);
 
     view.allocate(camWidth, camHeight);
@@ -51,6 +50,6 @@ void VideoPreview::draw()
 ofImage VideoPreview::grabCroppedFrame()
 {
     ofImage img = cam.getPixels();
-    img.crop(maskX, 0, camWidth - (maskX * 2), maskH);
+    img.crop(maskW, 0, camWidth - (maskW * 2), maskH);
     return img;
 }

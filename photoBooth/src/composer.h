@@ -21,15 +21,17 @@ public:
 
     ofFbo comp;
     ofPixels bat;
+    
+    int footer;
 
     vector<ofImage> images;
     vector<string> labels;
 
     ofParameterGroup params;
     ofParameter<bool> bGrid;
-//    ofParameter<int> lines;
-//    ofParameter<int> cols;
-    ofParameter<float> margin;
+    ofParameter<bool> bBorder;
+    ofParameter<int> inMargin;
+    ofParameter<int> outMargin;
     ofParameter<int> fontSize;
     ofParameter<int> width;
     ofParameter<int> height;

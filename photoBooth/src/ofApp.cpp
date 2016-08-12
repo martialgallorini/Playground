@@ -1,5 +1,10 @@
 #include "ofApp.h"
 
+
+// TODO :
+// - init layout values after defining comp size + border
+
+
 //--------------------------------------------------------------
 void ofApp::setup(){
     
@@ -74,8 +79,15 @@ void ofApp::onTimerEnd(const bool &val) {
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     if(key == ' ') {
-        text = word.getRandomText();
-        timer.start();
+        if(compose.bGrid) {
+        
+        }
+        else {
+            text = word.getRandomText();
+            timer.start();
+        }
+        //compose.create();
+        //compose.save();
     }
     if(key == 'f') {
         ofToggleFullscreen();
@@ -84,6 +96,25 @@ void ofApp::keyPressed(int key){
         bSetup = !bSetup;
     }
     if(key == 'c') {
+        compose.create();
+        compose.save();
+    }
+    if(key == 'q') {
+        
+        // 1 IMAGE :
+        // image height = cam height
+        // image width = ratio * image height
+        // mask width = cam width - image width
+        // if needed : scale image to fit compose - (margin * 2)
+        
+        // 4 IMAGES :
+        
+        ofImage img;
+        text = word.getRandomText();
+        for(int i = 0; i < 4; i++) {
+            img = preview.grabCroppedFrame();
+            compose.add(img, text);
+        }
         compose.create();
         compose.save();
     }
