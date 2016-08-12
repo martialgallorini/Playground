@@ -35,6 +35,8 @@ public:
     VideoPreview preview;
     Composer compose;
     ofFbo captionFbo;
+    
+    int snapCount;
 
     TextPicker word;
     ofTrueTypeFont verdana30;

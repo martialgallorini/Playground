@@ -43,10 +43,10 @@ void Composer::create() {
         footer = 0;
     }
     
-    comp.allocate(width, height + footer);
+    comp.allocate(width, height + footer + 10);
     comp.begin();
     ofClear(0);
-    ofDrawRectangle(0, 0, width, height + footer);
+    ofDrawRectangle(0, 0, width, height + footer + 10);
     if(bGrid) {
         int index = 0;
         for (int j = 0; j < 2; ++j) {
@@ -56,7 +56,7 @@ void Composer::create() {
                 float newHeight = newWidth / ratio;
                 images.at(index).resize(newWidth, newHeight);
                 float x = outMargin + j * (images.at(index).getWidth() + inMargin);
-                float y = outMargin + i * (images.at(index).getHeight() + inMargin);
+                float y = outMargin + 10 + i * (images.at(index).getHeight() + inMargin);
                 images.at(index).draw(x, y);
                 index++;
             }
@@ -67,7 +67,7 @@ void Composer::create() {
         float newWidth = comp.getWidth() - (outMargin * 2);
         float newHeight = newWidth / ratio;
         images.at(0).resize(newWidth, newHeight);
-        images.at(0).draw(outMargin, outMargin);
+        images.at(0).draw(outMargin, outMargin + 10);
     }
     ofTrueTypeFont title;
     title.load("TrashHand.ttf", 40, true, true);
@@ -82,7 +82,7 @@ void Composer::create() {
     title.setLetterSpacing(1.055);
     ofRectangle bounds = title.getStringBoundingBox(labels.at(0), 0, 0);
     float x = (width / 2) - (bounds.getWidth() / 2);
-    float y = height + footer - 50;
+    float y = height + footer + 10 - 50;
     ofSetColor(0);
     title.drawString(labels.at(0), x, y);
     comp.end();
@@ -92,7 +92,9 @@ void Composer::create() {
 
 void Composer::save()
 {
-    ofSaveImage(bat, "test.png");
+    string timeFormat = "%H%M%S";
+    string timeStamp = ofGetTimestampString(timeFormat);
+    ofSaveImage(bat, "Elo&Greg_" + timeStamp + ".png");
 }
 
 void Composer::print()

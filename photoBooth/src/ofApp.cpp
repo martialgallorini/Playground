@@ -35,6 +35,8 @@ void ofApp::setup(){
     
     timer.reset();
     
+    snapCount = 0;
+    
     ofAddListener(timer.timerEnded, this, &ofApp::onTimerEnd);
 }
 
@@ -72,22 +74,35 @@ void ofApp::exit() {
 }
 
 void ofApp::onTimerEnd(const bool &val) {
-    ofImage img = preview.grabCroppedFrame();
-    compose.add(img, text);
+    ofImage img;
+    if (compose.bGrid) {
+        snapCount++;
+        if (snapCount <= 4) {
+            img = preview.grabCroppedFrame();
+            compose.add(img, text);
+            if(snapCount == 4) {
+                snapCount = 0;
+                compose.create();
+                compose.save();
+            }
+            else {
+                timer.start();
+            }
+        }
+    }
+    else {
+        img = preview.grabCroppedFrame();
+        compose.add(img, text);
+        compose.create();
+        compose.save();
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     if(key == ' ') {
-        if(compose.bGrid) {
-        
-        }
-        else {
-            text = word.getRandomText();
-            timer.start();
-        }
-        //compose.create();
-        //compose.save();
+        text = word.getRandomText();
+        timer.start();
     }
     if(key == 'f') {
         ofToggleFullscreen();
@@ -95,29 +110,10 @@ void ofApp::keyPressed(int key){
     if(key == OF_KEY_TAB) {
         bSetup = !bSetup;
     }
-    if(key == 'c') {
-        compose.create();
-        compose.save();
+    if(key == 'p') {
+        system("lp /Users/Martial/Desktop/DEV/oF093/apps/playground/photoBooth/bin/data/test.png");
     }
-    if(key == 'q') {
-        
-        // 1 IMAGE :
-        // image height = cam height
-        // image width = ratio * image height
-        // mask width = cam width - image width
-        // if needed : scale image to fit compose - (margin * 2)
-        
-        // 4 IMAGES :
-        
-        ofImage img;
-        text = word.getRandomText();
-        for(int i = 0; i < 4; i++) {
-            img = preview.grabCroppedFrame();
-            compose.add(img, text);
-        }
-        compose.create();
-        compose.save();
-    }
+    
 }
 
 //--------------------------------------------------------------
