@@ -55,9 +55,12 @@ void Composer::create() {
                 float newWidth = (comp.getWidth() - inMargin - (outMargin * 2)) / 2;
                 float newHeight = newWidth / ratio;
                 images.at(index).resize(newWidth, newHeight);
-                float x = outMargin + j * (images.at(index).getWidth() + inMargin);
-                float y = outMargin + 10 + i * (images.at(index).getHeight() + inMargin);
-                images.at(index).draw(x, y);
+                float x = outMargin + i * (images.at(index).getWidth() + inMargin);
+                float y = outMargin + 10 + j * (images.at(index).getHeight() + inMargin);
+                images.at(index).draw(newWidth + x, y, -newWidth, newHeight);
+                
+                //cam.draw(camWidth, 0, -camWidth, camHeight);
+                
                 index++;
             }
         }
@@ -67,7 +70,7 @@ void Composer::create() {
         float newWidth = comp.getWidth() - (outMargin * 2);
         float newHeight = newWidth / ratio;
         images.at(0).resize(newWidth, newHeight);
-        images.at(0).draw(outMargin, outMargin + 10);
+        images.at(0).draw(newWidth + outMargin, outMargin + 10, -newWidth, newHeight);
     }
     ofTrueTypeFont title;
     title.load("TrashHand.ttf", 40, true, true);
