@@ -8,7 +8,6 @@
 class Timer
 {
 public:
-    //Timer(float t);
     ~Timer();
     void setup();
     void update();
@@ -18,9 +17,6 @@ public:
     bool isTimedOut();
 
     ofEvent<const bool> timerEnded;
-    //void onTimerEnd(const bool &val);
-
-    //float getElapsedTimeF();
 
     float newTime;
     int countdown;

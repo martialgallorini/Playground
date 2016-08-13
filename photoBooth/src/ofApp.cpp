@@ -3,6 +3,7 @@
 
 // TODO :
 // - init layout values after defining comp size + border
+// - fullscreen mode
 
 
 //--------------------------------------------------------------
@@ -111,7 +112,7 @@ void ofApp::keyPressed(int key){
         bSetup = !bSetup;
     }
     if(key == 'p') {
-        system("lp /Users/Martial/Desktop/DEV/oF093/apps/playground/photoBooth/bin/data/test.png");
+        compose.print();
     }
     
 }

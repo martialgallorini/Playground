@@ -14,9 +14,7 @@ void Composer::setup() {
     params.add(inMargin.set("internal margin", 10, 5, 50));
     params.add(fontSize.set("font size", 40, 10, 100));
     params.add(width.set("comp width", 600, 600, 1024));
-    //params.add(width.set("comp width", 860, 600, 1024));
     params.add(height.set("comp height", 800, 600, 1024));
-    //params.add(height.set("comp height", 920, 600, 1024));
     
     footer = 0;
     
@@ -43,7 +41,8 @@ void Composer::create() {
         footer = 0;
     }
     
-    comp.allocate(width, height + footer + 10);
+    comp.allocate(width, height + footer + 10, GL_RGB);
+    bat.allocate(width, height + footer + 10, GL_RGB);
     comp.begin();
     ofClear(0);
     ofDrawRectangle(0, 0, width, height + footer + 10);
@@ -58,9 +57,6 @@ void Composer::create() {
                 float x = outMargin + i * (images.at(index).getWidth() + inMargin);
                 float y = outMargin + 10 + j * (images.at(index).getHeight() + inMargin);
                 images.at(index).draw(newWidth + x, y, -newWidth, newHeight);
-                
-                //cam.draw(camWidth, 0, -camWidth, camHeight);
-                
                 index++;
             }
         }
@@ -89,7 +85,7 @@ void Composer::create() {
     ofSetColor(0);
     title.drawString(labels.at(0), x, y);
     comp.end();
-    comp.readToPixels(bat); // save as pixel array for further processing like printing
+    comp.readToPixels(bat); // save as pixel array for further processing like saving file and printing
     ofNotifyEvent(compositingDone, true);
 }
 
@@ -97,13 +93,14 @@ void Composer::save()
 {
     string timeFormat = "%H%M%S";
     string timeStamp = ofGetTimestampString(timeFormat);
-    ofSaveImage(bat, "Elo&Greg_" + timeStamp + ".png");
+    ofSaveImage(bat, "photo_" + timeStamp + ".png");
 }
 
 void Composer::print()
 {
-// PRINT VIA WIFI
-    
+// PRINT VIA CUPS COMMANDLINE ON USB OR WIFI
+    system("lp -o natural-scaling=100 /Users/Martial/Desktop/DEV/oF093/apps/playground/photoBooth/bin/data/test.png");
+
     
 // PRINT VIA BLUETOOTH
 //    ofSerial printer;

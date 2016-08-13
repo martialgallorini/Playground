@@ -44,7 +44,6 @@ void VideoPreview::draw()
     ofDrawRectangle(ofRectangle(camWidth - maskW, maskY, maskW, maskH));
     view.end();
     view.draw(0, 0);
-    //ofDrawBitmapString(ofGetFrameRate(), 20, 20);
 }
 
 ofImage VideoPreview::grabCroppedFrame()

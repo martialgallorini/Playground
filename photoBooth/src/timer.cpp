@@ -8,10 +8,6 @@
 //    
 //}
 
-Timer::~Timer() {
-    //ofRemoveListener(this->timerEnded, this, &Timer::onTimerEnd);
-}
-
 void Timer::setup() {
     
     params.setName("Timer Parameters");
@@ -23,14 +19,7 @@ void Timer::setup() {
     countdownText.load("verdana.ttf", fontSize, true, true);
     countdownText.setLineHeight(fontSize);
     countdownText.setLetterSpacing(1.055);
-
-    //ofAddListener(this->timerEnded, this, &Timer::onTimerEnd);
 }
-
-//void Timer::onTimerEnd(const bool &val){
-//    //bTimeout = true;
-//    //bFlash = true;
-//}
 
 bool Timer::isTimedOut() {
     return bTimeout;
@@ -45,7 +34,6 @@ void Timer::update() {
         }
         if(countdown < 0) {
             bFlash = true;
-            //ofNotifyEvent(timerEnded, true);
         }
     }
 }
