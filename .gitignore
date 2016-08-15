@@ -1,6 +1,10 @@
 # Binary data
 bin/
 
+# Binary data
+qtc_*/
+build_*/
+
 # C++ objects and libs
 
 *.slo

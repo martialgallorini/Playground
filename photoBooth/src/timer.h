@@ -8,7 +8,6 @@
 class Timer
 {
 public:
-    ~Timer();
     void setup();
     void update();
     void start();

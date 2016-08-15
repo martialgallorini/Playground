@@ -1,5 +1,4 @@
 // TODO
-// - flip saved image
 // - print over wifi
 // - format impression : 600 x 800
 // - add border
@@ -93,13 +92,19 @@ void Composer::save()
 {
     string timeFormat = "%H%M%S";
     string timeStamp = ofGetTimestampString(timeFormat);
-    ofSaveImage(bat, "photo_" + timeStamp + ".png");
+    ofSaveImage(bat, "photo_" + timeStamp + ".jpg");
 }
 
 void Composer::print()
 {
-// PRINT VIA CUPS COMMANDLINE ON USB OR WIFI
-    system("lp -o natural-scaling=100 /Users/Martial/Desktop/DEV/oF093/apps/playground/photoBooth/bin/data/test.png");
+//PRINT VIA CUPS COMMANDLINE ON USB OR WIFI
+    //system("lp -o Media=860x1070 -o ColorModel=Gray /Users/Martial/Desktop/DEV/oF093/apps/playground/photoBooth/bin/data/test.jpg");
+    string cmd;
+    cmd += "lp ";
+    cmd += "-o ColorModel=Gray ";
+    cmd += "-o Media=Custom." + ofToString(comp.getWidth()) + "x" + ofToString(comp.getHeight());
+    cmd += "/Users/Martial/Desktop/DEV/oF093/apps/playground/photoBooth/bin/data/test.jpg";
+    system(cmd.c_str());
 
     
 // PRINT VIA BLUETOOTH
