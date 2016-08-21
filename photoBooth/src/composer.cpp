@@ -2,6 +2,17 @@
 // - print over wifi
 // - format impression : 600 x 800
 // - add border
+// - 600 x 800 px en 320 dpi soit 46 x 62 mm soit environ 2250 x 3000
+// - ability to stop printing
+
+
+// FINDING DPI ////////////////
+// 800x600 is aprox 68 dpi ( dots per inch ) if printed on A4 which is 11.69 inches on the long side.
+// 800 pixels / 11.69 inches = 68 dpi
+//
+// So: 300 dpi * 11.69 inches = 3507 pixels
+//
+// Rounding down could do 3000 pixels x 2250 to keep aspect ratio and close to a 300 dpi image.
 
 #include "composer.h"
 
@@ -14,6 +25,10 @@ void Composer::setup() {
     params.add(fontSize.set("font size", 40, 10, 100));
     params.add(width.set("comp width", 600, 600, 1024));
     params.add(height.set("comp height", 800, 600, 1024));
+    
+    // 800 x 600 in 300 DPI
+//    params.add(width.set("comp width", 2250, 600, 6000));
+//    params.add(height.set("comp height", 3000, 600, 6000));
     
     footer = 0;
     
@@ -100,13 +115,13 @@ void Composer::print()
 //PRINT VIA CUPS COMMANDLINE ON USB OR WIFI
     //system("lp -o Media=860x1070 -o ColorModel=Gray /Users/Martial/Desktop/DEV/oF093/apps/playground/photoBooth/bin/data/test.jpg");
     string cmd;
-    cmd += "lp ";
-    cmd += "-o ColorModel=Gray ";
-    cmd += "-o Media=Custom." + ofToString(comp.getWidth()) + "x" + ofToString(comp.getHeight());
-    cmd += "/Users/Martial/Desktop/DEV/oF093/apps/playground/photoBooth/bin/data/test.jpg";
+    cmd += "lp";
+    cmd += " -o ColorModel=Gray";
+//    cmd += " -o MediaSize=Custom." + ofToString(comp.getWidth()) + "x" + ofToString(comp.getHeight());
+//    cmd += " -o media=3.5x5";
+    cmd += " /Users/Martial/Desktop/DEV/oF093/apps/playground/photoBooth/bin/data/test_300dpi.jpg";
     system(cmd.c_str());
 
-    
 // PRINT VIA BLUETOOTH
 //    ofSerial printer;
 //    printer.setup(0, 9600);
