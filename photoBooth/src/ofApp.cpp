@@ -101,6 +101,10 @@ void ofApp::onTimerEnd(const bool &val) {
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+    if(key == OF_KEY_RETURN) {
+        text = word.getRandomText();
+        timer.start();
+    }
     if(key == ' ') {
         text = word.getRandomText();
         timer.start();
@@ -134,7 +138,7 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-    
+
 }
 
 //--------------------------------------------------------------

@@ -30,22 +30,18 @@ public:
     void onShadeModelChange(bool &val);
     void onGLModeChange(int &val);
     
-    //    void onDisplacementInverted(bool &val);
-    
     ofImage img; // loaded image
     
     int maxBright; // image max brightness
     int minBright; // image min brightness
     
     void createMesh(ofImage &img);
-    //    void updateAlpha();
-    //    void updateVerticesPosition();
-    //    void updateVerticesColor();
     
     ofVboMesh mesh;
-    //    ofVboMesh wireframe;
     
     ofEasyCam cam;
+    
+    bool bSetup;
     
     ofxPanel gui;
     ofParameterGroup meshGroup;
@@ -67,13 +63,21 @@ public:
     // display circles radius relative to brightness at mesh vertices position
     ofParameterGroup circlesGroup;
     ofParameter<bool> bCircle;
+    ofParameter<bool> bCircleFill;
+    
+    // display circles radius relative to brightness at mesh vertices position
+    ofParameterGroup squaresGroup;
+    ofParameter<bool> bRect;
+    ofParameter<bool> bRectFill;
+    ofParameter<bool> bRotation;
     
     // display horizontal lines stroke width relative to brightness using mesh vertices position
     ofParameterGroup stripesGroup;
     ofParameter<bool> bStripes;
-    ofParameter<float> minStrikeWidth;
-    ofParameter<float> maxStrikeWidth;
-    ofParameter<bool> bGrey;
-    
-    bool bSetup;
+    ofParameter<float> minStrokeWidth;
+    ofParameter<float> maxStrokeWidth;
+    ofParameter<bool> bColor;
+    ofParameter<bool> bGray;
+    ofParameter<bool> bWhite;
+    ofParameter<bool> bInvert;
 };
