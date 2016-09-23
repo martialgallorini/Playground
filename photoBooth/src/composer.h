@@ -13,12 +13,12 @@ public:
     void add(ofImage image, string label);
     void create();
     void save();
-    void print();
-    void clear();
     
     ofEvent<const bool> compositingDone;
     void onCompositingDone(const bool &val);
 
+    ofPixels& getPixels();
+    
     ofFbo comp;
     ofPixels bat;
     

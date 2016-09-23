@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "F95D9539CC6250E0C887914092800E68C6EA1897",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "F95D9539CC6250E0C887914092800E68C6EA1897" : 0,
+    "C017EF18B2148D698572A852D2C6E4E1A470D839" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "9FE0027C-435C-4907-8FA2-538919FCBD19",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "F95D9539CC6250E0C887914092800E68C6EA1897" : "playground\/",
+    "C017EF18B2148D698572A852D2C6E4E1A470D839" : "..\/addons\/ofxThermalPrinter"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "photoBooth",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "photoBooth\/photoBooth.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/martialgallorini\/ofxThermalPrinter.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C017EF18B2148D698572A852D2C6E4E1A470D839"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/martialgallorini\/Playground.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F95D9539CC6250E0C887914092800E68C6EA1897"
+    }
+  ]
+}

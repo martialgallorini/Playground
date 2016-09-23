@@ -6,9 +6,9 @@
 #include "videopreview.h"
 #include "composer.h"
 #include "ofxGui.h"
-
-#define CAM_WIDTH 1280
-#define CAM_HEIGHT 720
+#include "printer.h"
+#include "thermalPrinter.h"
+#include "defines.h"
 
 class ofApp : public ofBaseApp{
 
@@ -47,4 +47,6 @@ public:
     ofxPanel gui;
 
     bool bSetup;
+    
+    Printer *printer;
 };

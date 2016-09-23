@@ -10,8 +10,9 @@
 void ofApp::setup(){
     
     ofBackground(0);
-    ofSetFrameRate(30);
-    
+    //ofSetFrameRate(30);
+    ofSetVerticalSync(true);
+        
     captionFbo.allocate(ofGetWidth(), 50);
     captionFbo.begin();
     ofClear(0);
@@ -39,6 +40,8 @@ void ofApp::setup(){
     snapCount = 0;
     
     ofAddListener(timer.timerEnded, this, &ofApp::onTimerEnd);
+    
+    printer = Printer::create(PRINTER_THERMAL);
 }
 
 //--------------------------------------------------------------
@@ -72,6 +75,7 @@ void ofApp::draw(){
 
 void ofApp::exit() {
     ofRemoveListener(timer.timerEnded, this, &ofApp::onTimerEnd);
+    delete printer;
 }
 
 void ofApp::onTimerEnd(const bool &val) {
@@ -116,7 +120,10 @@ void ofApp::keyPressed(int key){
         bSetup = !bSetup;
     }
     if(key == 'p') {
-        compose.print();
+        ofPixels pix = compose.getPixels();
+        ofImage img;
+        img.setFromPixels(pix);
+        printer->print(img);
     }
     
 }
